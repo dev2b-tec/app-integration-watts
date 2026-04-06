@@ -1,0 +1,32 @@
+services:
+  app-integration-watts:
+    image: ${DOCKER_USERNAME}/app-integration-watts:${IMAGE_TAG}
+    container_name: app-integration-watts
+    restart: unless-stopped
+    env_file:
+      - path: .env.app
+        required: false
+    expose:
+      - "8012"
+    networks:
+      - db-net
+      - infra-net
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app-integration-watts.rule=Host(`whats-api.dev2b.tec.br`)"
+      - "traefik.http.routers.app-integration-watts.entrypoints=websecure"
+      - "traefik.http.routers.app-integration-watts.tls=true"
+      - "traefik.http.routers.app-integration-watts.tls.certresolver=letsencrypt"
+      - "traefik.http.services.app-integration-watts.loadbalancer.server.port=8012"
+
+networks:
+  db-net:
+    external: true
+    name: db-net
+  infra-net:
+    external: true
+    name: infra-net
+  proxy:
+    external: true
+    name: proxy

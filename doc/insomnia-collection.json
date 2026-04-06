@@ -1,0 +1,412 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: app-integration-watts
+meta:
+  id: wrk_d3a4a1b2339c41cd83a4424cd65955f6
+  created: 1775416021379
+  modified: 1775416021379
+  description: ""
+collection:
+  - name: Instâncias
+    meta:
+      id: fld_de4f51aeb76140f6a7852af37516974b
+      created: 1775416021397
+      modified: 1775416021397
+      sortKey: -1775416021397
+      description: ""
+    children:
+      - url: "{{ base_url }}/api/v1/instancias"
+        name: Criar Instância
+        meta:
+          id: req_dc5d5fb4fc5340d493c48781385eac53
+          created: 1775416021404
+          modified: 1775416316996
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021404
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "empresaId": "{{ empresa_id }}",
+              "usuarioId": "{{ usuario_id }}",
+              "nome": "Minha Instânciax"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/instancias/empresa/{{ empresa_id }}"
+        name: Listar por Empresa
+        meta:
+          id: req_6e90e76cb49046dbadb51802c1e1b426
+          created: 1775416021410
+          modified: 1775416021410
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021410
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/instancias/usuario/{{ usuario_id }}"
+        name: Listar por Usuário
+        meta:
+          id: req_557dfa1681c44c4989ad4c6a3fa61339
+          created: 1775416021415
+          modified: 1775416021415
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021415
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/instancias/{{ instancia_id }}"
+        name: Buscar por ID
+        meta:
+          id: req_5acdf61135814e8d94eb084356ac87d2
+          created: 1775416021422
+          modified: 1775416021422
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021422
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/instancias/{{ instancia_id }}/reconectar"
+        name: Reconectar (novo QR Code)
+        meta:
+          id: req_15eca7063164499abd4f1c4f33f07b16
+          created: 1775416021427
+          modified: 1775416021427
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021427
+        method: POST
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/instancias/{{ instancia_id }}/webhook"
+        name: Reconfigurar Webhook
+        meta:
+          id: req_ecd72013d5e444f886e7394d9282e3c1
+          created: 1775416021432
+          modified: 1775416021432
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021432
+        method: POST
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/instancias/{{ instancia_id }}"
+        name: Excluir Instância
+        meta:
+          id: req_a5784bb17ba444d1946cf0c532a980ab
+          created: 1775416021439
+          modified: 1775416021439
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021439
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Mensagens
+    meta:
+      id: fld_11dcf5f802a8428fafaab3961f97db37
+      created: 1775416021443
+      modified: 1775416021443
+      sortKey: -1775416021443
+      description: ""
+    children:
+      - url: "{{ base_url }}/api/v1/mensagens/enviar"
+        name: Enviar Texto
+        meta:
+          id: req_b233c15c993b43708b94b6724cd334d0
+          created: 1775416021449
+          modified: 1775420444836
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021449
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "instanciaId": "{{ instancia_id }}",
+              "numero": "5581996349077",
+              "texto": "Olá! Mensagem de teste."
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/mensagens/instancia/{{ instancia_id
+          }}?page=0&size=50"
+        name: Listar Mensagens da Instância
+        meta:
+          id: req_a7c0beabf21348b6bc7081199d0c97b2
+          created: 1775416021454
+          modified: 1775416021454
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021454
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/mensagens/instancia/{{ instancia_id
+          }}/conversa?remoteJid=5581999990000@s.whatsapp.net"
+        name: Listar Conversa (por remoteJid)
+        meta:
+          id: req_40e23125823544ebbc40650dbed0ae9e
+          created: 1775416021523
+          modified: 1775416021523
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021523
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/mensagens/00000000-0000-0000-0000-000000000000"
+        name: Buscar Mensagem por ID
+        meta:
+          id: req_513d952610e2421d86556840f5c3cc01
+          created: 1775416021527
+          modified: 1775416021527
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021527
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Webhook (simulação)
+    meta:
+      id: fld_65c84581d9d0488bb2a0dcd6dd6bd43d
+      created: 1775416021529
+      modified: 1775416021529
+      sortKey: -1775416021529
+      description: ""
+    children:
+      - url: "{{ base_url }}/api/v1/webhook/evolution"
+        name: Simular messages.upsert (texto recebido)
+        meta:
+          id: req_a0c0ce815cdd4fceb11398b3e2e92167
+          created: 1775416021530
+          modified: 1775416021530
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021530
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "event": "messages.upsert",
+              "instance": "minha-instancia",
+              "data": {
+                "messages": [
+                  {
+                    "key": {
+                      "remoteJid": "5581999990000@s.whatsapp.net",
+                      "fromMe": false,
+                      "id": "MSG_ID_TESTE_001"
+                    },
+                    "pushName": "João Teste",
+                    "message": {
+                      "conversation": "Olá, gostaria de agendar uma consulta!"
+                    }
+                  }
+                ]
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/webhook/evolution"
+        name: Simular connection.update (open)
+        meta:
+          id: req_199df362e5344225ba8737de0f9cea43
+          created: 1775416021531
+          modified: 1775416021531
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021531
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "event": "connection.update",
+              "instance": "minha-instancia",
+              "data": {
+                "state": "open",
+                "instance": {
+                  "owner": "5581999990000@s.whatsapp.net"
+                }
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/webhook/evolution"
+        name: Simular connection.update (close)
+        meta:
+          id: req_668d68eb4d024a85b0c002991ddc24af
+          created: 1775416021532
+          modified: 1775416021532
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021532
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "event": "connection.update",
+              "instance": "minha-instancia",
+              "data": {
+                "state": "close"
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/webhook/evolution"
+        name: Simular qrcode.updated
+        meta:
+          id: req_85bd5c92a56a47dd9d833f42789d2582
+          created: 1775416021533
+          modified: 1775416021533
+          isPrivate: false
+          description: ""
+          sortKey: -1775416021533
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "event": "qrcode.updated",
+              "instance": "minha-instancia",
+              "data": {
+                "base64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_c0dc59e056f91d86532da9c192a849a30d8e83a4
+    created: 1775416021988
+    modified: 1775416021988
+environments:
+  name: Local
+  meta:
+    id: env_4b6f24fbb36c4c178660b75c5ec87d8d
+    created: 1775416021386
+    modified: 1775420435272
+    isPrivate: false
+  data:
+    base_url: http://localhost:8012
+    empresa_id: 00000000-0000-0000-0000-000000000001
+    usuario_id: 00000000-0000-0000-0000-000000000002
+    instancia_id: 3b74ebfc-4b3e-45b5-a256-e0aeedc158a8

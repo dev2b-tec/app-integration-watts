@@ -2,14 +2,14 @@ type: collection.insomnia.rest/5.0
 schema_version: "5.1"
 name: app-integration-watts
 meta:
-  id: wrk_d3a4a1b2339c41cd83a4424cd65955f6
-  created: 1775416021379
-  modified: 1775416021379
+  id: wrk_416f6683ffd840c6be09e21e23b7cd8a
+  created: 1775514022515
+  modified: 1775514022515
   description: ""
 collection:
   - name: Instâncias
     meta:
-      id: fld_de4f51aeb76140f6a7852af37516974b
+      id: fld_c3723b97a9fa4c4e8d275fed1bdfbb85
       created: 1775416021397
       modified: 1775416021397
       sortKey: -1775416021397
@@ -18,9 +18,9 @@ collection:
       - url: "{{ base_url }}/api/v1/instancias"
         name: Criar Instância
         meta:
-          id: req_dc5d5fb4fc5340d493c48781385eac53
+          id: req_075f0378882348ae969022239b49ec8d
           created: 1775416021404
-          modified: 1775416316996
+          modified: 1775437726186
           isPrivate: false
           description: ""
           sortKey: -1775416021404
@@ -31,7 +31,7 @@ collection:
             {
               "empresaId": "{{ empresa_id }}",
               "usuarioId": "{{ usuario_id }}",
-              "nome": "Minha Instânciax"
+              "nome": "Minha Instância"
             }
         headers:
           - name: Content-Type
@@ -47,9 +47,9 @@ collection:
       - url: "{{ base_url }}/api/v1/instancias/empresa/{{ empresa_id }}"
         name: Listar por Empresa
         meta:
-          id: req_6e90e76cb49046dbadb51802c1e1b426
+          id: req_4d7bc81ef6974bd0800aaa17cc8e4843
           created: 1775416021410
-          modified: 1775416021410
+          modified: 1775471532505
           isPrivate: false
           description: ""
           sortKey: -1775416021410
@@ -65,7 +65,7 @@ collection:
       - url: "{{ base_url }}/api/v1/instancias/usuario/{{ usuario_id }}"
         name: Listar por Usuário
         meta:
-          id: req_557dfa1681c44c4989ad4c6a3fa61339
+          id: req_98891fc4e06f457885a77dfaf31e8b0e
           created: 1775416021415
           modified: 1775416021415
           isPrivate: false
@@ -83,7 +83,7 @@ collection:
       - url: "{{ base_url }}/api/v1/instancias/{{ instancia_id }}"
         name: Buscar por ID
         meta:
-          id: req_5acdf61135814e8d94eb084356ac87d2
+          id: req_556e8b8ef81d496c8237dad77faa406b
           created: 1775416021422
           modified: 1775416021422
           isPrivate: false
@@ -101,7 +101,7 @@ collection:
       - url: "{{ base_url }}/api/v1/instancias/{{ instancia_id }}/reconectar"
         name: Reconectar (novo QR Code)
         meta:
-          id: req_15eca7063164499abd4f1c4f33f07b16
+          id: req_d217fb8b63be43b7ae88de3d2ef74af7
           created: 1775416021427
           modified: 1775416021427
           isPrivate: false
@@ -119,7 +119,7 @@ collection:
       - url: "{{ base_url }}/api/v1/instancias/{{ instancia_id }}/webhook"
         name: Reconfigurar Webhook
         meta:
-          id: req_ecd72013d5e444f886e7394d9282e3c1
+          id: req_1a9893dd203b4cc4b2d40a42f59b4b09
           created: 1775416021432
           modified: 1775416021432
           isPrivate: false
@@ -137,7 +137,7 @@ collection:
       - url: "{{ base_url }}/api/v1/instancias/{{ instancia_id }}"
         name: Excluir Instância
         meta:
-          id: req_a5784bb17ba444d1946cf0c532a980ab
+          id: req_60da8a3f2a8d4297b5f163d8a0bf6062
           created: 1775416021439
           modified: 1775416021439
           isPrivate: false
@@ -154,7 +154,7 @@ collection:
           rebuildPath: true
   - name: Mensagens
     meta:
-      id: fld_11dcf5f802a8428fafaab3961f97db37
+      id: fld_4635ea3ed38c46e9abea1a6a5c94e3d1
       created: 1775416021443
       modified: 1775416021443
       sortKey: -1775416021443
@@ -163,7 +163,7 @@ collection:
       - url: "{{ base_url }}/api/v1/mensagens/enviar"
         name: Enviar Texto
         meta:
-          id: req_b233c15c993b43708b94b6724cd334d0
+          id: req_c293c76b92f14d37bb5fb8c862ca7a3d
           created: 1775416021449
           modified: 1775420444836
           isPrivate: false
@@ -193,7 +193,7 @@ collection:
           }}?page=0&size=50"
         name: Listar Mensagens da Instância
         meta:
-          id: req_a7c0beabf21348b6bc7081199d0c97b2
+          id: req_c139185370bc46efbd352656b9976e57
           created: 1775416021454
           modified: 1775416021454
           isPrivate: false
@@ -212,7 +212,7 @@ collection:
           }}/conversa?remoteJid=5581999990000@s.whatsapp.net"
         name: Listar Conversa (por remoteJid)
         meta:
-          id: req_40e23125823544ebbc40650dbed0ae9e
+          id: req_0bf1fd6c5bbe4941a14cebcb63844703
           created: 1775416021523
           modified: 1775416021523
           isPrivate: false
@@ -230,7 +230,7 @@ collection:
       - url: "{{ base_url }}/api/v1/mensagens/00000000-0000-0000-0000-000000000000"
         name: Buscar Mensagem por ID
         meta:
-          id: req_513d952610e2421d86556840f5c3cc01
+          id: req_0ee7488aca7747e0a07aaf09241ee210
           created: 1775416021527
           modified: 1775416021527
           isPrivate: false
@@ -247,7 +247,7 @@ collection:
           rebuildPath: true
   - name: Webhook (simulação)
     meta:
-      id: fld_65c84581d9d0488bb2a0dcd6dd6bd43d
+      id: fld_8b5fbbd77e114db0bd2ee5a3b25f43f2
       created: 1775416021529
       modified: 1775416021529
       sortKey: -1775416021529
@@ -256,7 +256,7 @@ collection:
       - url: "{{ base_url }}/api/v1/webhook/evolution"
         name: Simular messages.upsert (texto recebido)
         meta:
-          id: req_a0c0ce815cdd4fceb11398b3e2e92167
+          id: req_eadbdb485d7244ecb373b7a73b372557
           created: 1775416021530
           modified: 1775416021530
           isPrivate: false
@@ -299,7 +299,7 @@ collection:
       - url: "{{ base_url }}/api/v1/webhook/evolution"
         name: Simular connection.update (open)
         meta:
-          id: req_199df362e5344225ba8737de0f9cea43
+          id: req_304e77199d9042cbafe17549beb3f7c0
           created: 1775416021531
           modified: 1775416021531
           isPrivate: false
@@ -333,7 +333,7 @@ collection:
       - url: "{{ base_url }}/api/v1/webhook/evolution"
         name: Simular connection.update (close)
         meta:
-          id: req_668d68eb4d024a85b0c002991ddc24af
+          id: req_9ed3e45454814d3395444d434db549cc
           created: 1775416021532
           modified: 1775416021532
           isPrivate: false
@@ -364,7 +364,7 @@ collection:
       - url: "{{ base_url }}/api/v1/webhook/evolution"
         name: Simular qrcode.updated
         meta:
-          id: req_85bd5c92a56a47dd9d833f42789d2582
+          id: req_39c321c885434040b5c5b57b4bde10f9
           created: 1775416021533
           modified: 1775416021533
           isPrivate: false
@@ -392,21 +392,239 @@ collection:
             send: true
             store: true
           rebuildPath: true
+  - name: Conversas
+    meta:
+      id: fld_5b589ec4afdf49df93cb02e3ea42b636
+      created: 1775512000000
+      modified: 1775512000000
+      sortKey: -1775412000000
+      description: ""
+    children:
+      - url: "{{ base_url }}/api/v1/conversas"
+        name: Criar Conversa
+        meta:
+          id: req_34277f2535ae4bc99a48fa90dc5a8db1
+          created: 1775512000001
+          modified: 1775514042415
+          isPrivate: false
+          description: ""
+          sortKey: -1775512000001
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "empresaId": "{{ empresa_id }}",
+              "telefone": "5581996349077"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/conversas/buscar-ou-criar?empresaId={{ empresa_id
+          }}&telefone=5581999990000"
+        name: Buscar ou Criar Conversa
+        meta:
+          id: req_ec8fc44e7b1140858065135f000a6377
+          created: 1775512000002
+          modified: 1775512000002
+          isPrivate: false
+          description: ""
+          sortKey: -1775512000002
+        method: POST
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/conversas/{{ conversa_id }}"
+        name: Buscar Conversa por ID
+        meta:
+          id: req_2dfc3b556acd411082578a34b8f2f710
+          created: 1775512000003
+          modified: 1775512000003
+          isPrivate: false
+          description: ""
+          sortKey: -1775512000003
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/conversas/empresa/{{ empresa_id }}?page=0&size=20"
+        name: Listar por Empresa (paginado)
+        meta:
+          id: req_23c81ae116cf41ddb86b23c229aee2cb
+          created: 1775512000004
+          modified: 1775512000004
+          isPrivate: false
+          description: ""
+          sortKey: -1775512000004
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/conversas/empresa/{{ empresa_id }}/status/ATIVA"
+        name: Listar por Status (ATIVA)
+        meta:
+          id: req_411c8af516264e3f9e924fdc847472c8
+          created: 1775512000005
+          modified: 1775512000005
+          isPrivate: false
+          description: "Valores possíveis: ATIVA, EM_ESPERA, EM_ATENDIMENTO, EM_CHATBOT,
+            FINALIZADA"
+          sortKey: -1775512000005
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/conversas/{{ conversa_id }}/status"
+        name: Alterar Status da Conversa
+        meta:
+          id: req_024e1d01cb2c4afe9c20ac47b6722310
+          created: 1775512000006
+          modified: 1775512000006
+          isPrivate: false
+          description: ""
+          sortKey: -1775512000006
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "status": "EM_ATENDIMENTO"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/conversas/{{ conversa_id
+          }}/mensagens?page=0&size=50"
+        name: Listar Mensagens da Conversa
+        meta:
+          id: req_957271fdc6a04dc99998fcdbb479bbf2
+          created: 1775512000007
+          modified: 1775512000007
+          isPrivate: false
+          description: ""
+          sortKey: -1775512000007
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/conversas/{{ conversa_id
+          }}/mensagens/texto?texto=Ol%C3%A1%2C+tudo+bem%3F"
+        name: Adicionar Mensagem de Texto
+        meta:
+          id: req_1faa3e02f0c1492ea9b5536beb93064f
+          created: 1775512000008
+          modified: 1775512000008
+          isPrivate: false
+          description: ""
+          sortKey: -1775512000008
+        method: POST
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/conversas/{{ conversa_id }}/mensagens/arquivo"
+        name: Adicionar Mensagem com Arquivo (MinIO)
+        meta:
+          id: req_2fa26dbf9f8d4ef592d02d2e51412be1
+          created: 1775512000009
+          modified: 1775512000009
+          isPrivate: false
+          description: multipart/form-data — campo 'arquivo' obrigatório
+          sortKey: -1775512000009
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: arquivo
+              value: ""
+              fileName: ""
+              type: file
+            - name: texto
+              value: Legenda opcional
+              type: text
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
 cookieJar:
   name: Default Jar
   meta:
-    id: jar_c0dc59e056f91d86532da9c192a849a30d8e83a4
+    id: jar_9e07fb4863594e7a94d75a38975e9633
     created: 1775416021988
     modified: 1775416021988
 environments:
   name: Local
   meta:
-    id: env_4b6f24fbb36c4c178660b75c5ec87d8d
+    id: env_0d87eea3554b414d973b1c549e17f1a3
     created: 1775416021386
-    modified: 1775420435272
+    modified: 1775514201299
     isPrivate: false
   data:
     base_url: http://localhost:8012
-    empresa_id: 00000000-0000-0000-0000-000000000001
+    empresa_id: 8cc96358-b211-41f1-8bec-28a812931e37
     usuario_id: 00000000-0000-0000-0000-000000000002
     instancia_id: 3b74ebfc-4b3e-45b5-a256-e0aeedc158a8
+    conversa_id: 030bbb73-eff5-4a47-8882-a36bd9060b82
+  subEnvironments:
+    - name: dev
+      meta:
+        id: env_83dbaceaf1ed4dc1a59efea278ebf7b0
+        created: 1775437616704
+        modified: 1775437672348
+        isPrivate: false
+        sortKey: 1775437616704
+      data:
+        base_url: https://whats-api.dev2b.tec.br
+        empresa_id: 00000000-0000-0000-0000-000000000001
+        usuario_id: 00000000-0000-0000-0000-000000000002
+        instancia_id: 3b74ebfc-4b3e-45b5-a256-e0aeedc158a8
+        conversa_id: 00000000-0000-0000-0000-000000000010

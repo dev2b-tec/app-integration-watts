@@ -48,4 +48,17 @@ public class EvolutionApiClient {
                 .retrieve()
                 .toBodilessEntity();
     }
+
+    /**
+     * Obtém o conteúdo de uma mensagem de mídia em Base64.
+     *
+     * @see <a href="https://doc.evolution-api.com/v2/api-reference/chat-controller/get-base64">Docs</a>
+     */
+    public GetBase64Response getBase64FromMedia(String instanceName, String messageId) {
+        return evolutionRestClient.post()
+                .uri("/chat/getBase64FromMediaMessage/{name}", instanceName)
+                .body(GetBase64Request.of(messageId))
+                .retrieve()
+                .body(GetBase64Response.class);
+    }
 }

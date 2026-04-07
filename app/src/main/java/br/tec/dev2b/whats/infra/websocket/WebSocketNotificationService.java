@@ -1,5 +1,6 @@
 package br.tec.dev2b.whats.infra.websocket;
 
+import br.tec.dev2b.whats.conversa.dto.MensagemDaConversaDto;
 import br.tec.dev2b.whats.instancia.dto.InstanciaDto;
 import br.tec.dev2b.whats.mensagem.dto.MensagemDto;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,14 @@ public class WebSocketNotificationService {
     public void notificarMensagem(UUID instanciaId, MensagemDto mensagem) {
         messagingTemplate.convertAndSend(
                 "/topic/instancias/" + instanciaId + "/mensagens",
+                mensagem
+        );
+    }
+
+    /** Notifica o front-end de nova mensagem numa conversa específica. */
+    public void notificarMensagemDaConversa(UUID conversaId, MensagemDaConversaDto mensagem) {
+        messagingTemplate.convertAndSend(
+                "/topic/conversas/" + conversaId,
                 mensagem
         );
     }

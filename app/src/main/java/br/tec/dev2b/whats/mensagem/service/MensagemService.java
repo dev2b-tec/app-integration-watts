@@ -119,4 +119,40 @@ public class MensagemService {
         webSocketService.notificarMensagem(instancia.getId(), result);
         return result;
     }
+
+    /**
+     * Registra mensagem enviada por nós via webhook da Evolution API.
+     * Chamado pelo MensagemUpsertService quando fromMe=true.
+     */
+    @Transactional
+    public MensagemDto registrarEnviada(String instanceName, String remoteJid,
+                                        String messageId, String conteudo, String tipo) {
+        Instancia instancia = instanciaRepository.findByInstanceName(instanceName)
+                .orElse(null);
+
+        if (instancia == null) return null;
+
+        String numero = remoteJid.replace("@s.whatsapp.net", "").replace("@g.us", "");
+
+        Mensagem mensagem = Mensagem.builder()
+                .instancia(instancia)
+                .remoteJid(remoteJid)
+                .numero(numero)
+                .messageId(messageId)
+                .tipo(tipo != null ? tipo : "TEXTO")
+                .conteudo(conteudo)
+                .direcao("ENVIADA")
+                .statusEnvio("ENVIADA")
+                .build();
+
+        mensagem = mensagemRepository.save(mensagem);
+
+        log.info("[MENSAGEM SALVA] id={} instancia={} numero={} tipo={} direcao=ENVIADA conteudo={}",
+                mensagem.getId(), instanceName, numero, mensagem.getTipo(),
+                conteudo != null ? conteudo.substring(0, Math.min(conteudo.length(), 100)) : "(sem conteúdo)");
+
+        MensagemDto result = MensagemDto.from(mensagem);
+        webSocketService.notificarMensagem(instancia.getId(), result);
+        return result;
+    }
 }

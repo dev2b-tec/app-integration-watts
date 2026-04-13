@@ -16,6 +16,8 @@ public class MensagemDto {
     private String messageId;
     private String tipo;
     private String conteudo;
+    /** URL de mídia (imagem, vídeo, documento, áudio, sticker) quando aplicável. */
+    private String mediaUrl;
     private String direcao;
     private String statusEnvio;
     private LocalDateTime createdAt;
@@ -30,6 +32,7 @@ public class MensagemDto {
         dto.messageId = m.getMessageId();
         dto.tipo = m.getTipo();
         dto.conteudo = m.getConteudo();
+        dto.mediaUrl = m.getMediaUrl();
         dto.direcao = m.getDirecao();
         dto.statusEnvio = m.getStatusEnvio();
         dto.createdAt = m.getCreatedAt();

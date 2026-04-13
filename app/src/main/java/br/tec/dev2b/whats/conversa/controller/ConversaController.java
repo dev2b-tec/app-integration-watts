@@ -85,6 +85,24 @@ public class ConversaController {
         return ResponseEntity.ok(conversaService.adicionarMensagemComArquivo(id, texto, recebidaEm, arquivo));
     }
 
+    @PostMapping("/{id}/mensagens/audio")
+    public ResponseEntity<MensagemDaConversaDto> adicionarAudio(
+            @PathVariable UUID id,
+            @RequestPart("audio") MultipartFile audio) {
+        return ResponseEntity.ok(conversaService.adicionarMensagemAudio(id, audio));
+    }
+
+    @PostMapping("/{id}/mensagens/localizacao")
+    public ResponseEntity<MensagemDaConversaDto> adicionarLocalizacao(
+            @PathVariable UUID id,
+            @RequestParam Double latitude,
+            @RequestParam Double longitude,
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) String endereco) {
+        return ResponseEntity.ok(
+                conversaService.adicionarMensagemLocalizacao(id, latitude, longitude, nome, endereco));
+    }
+
     @GetMapping("/{id}/mensagens")
     public ResponseEntity<Page<MensagemDaConversaDto>> listarMensagens(
             @PathVariable UUID id,

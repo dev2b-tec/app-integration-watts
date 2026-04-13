@@ -11,7 +11,11 @@ public record MensagemDaConversaDto(
         String texto,
         Instant recebidaEm,
         String urlArquivo,
-        boolean enviada
+        boolean enviada,
+        String tipo,
+        String nomeArquivo,
+        Double latitude,
+        Double longitude
 ) {
     public static MensagemDaConversaDto from(MensagemDaConversa m) {
         return new MensagemDaConversaDto(
@@ -20,7 +24,11 @@ public record MensagemDaConversaDto(
                 m.getTexto(),
                 m.getRecebidaEm(),
                 m.getUrlArquivo(),
-                m.isEnviada()
+                m.isEnviada(),
+                m.getTipo() != null ? m.getTipo() : "TEXTO",
+                m.getNomeArquivo(),
+                m.getLatitude(),
+                m.getLongitude()
         );
     }
 }

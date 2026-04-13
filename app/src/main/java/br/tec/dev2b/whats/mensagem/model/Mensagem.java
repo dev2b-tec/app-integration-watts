@@ -43,6 +43,10 @@ public class Mensagem {
     @Column(columnDefinition = "TEXT")
     private String conteudo;
 
+    /** URL de mídia no MinIO ou URL externa para imagem/vídeo/doc/áudio/sticker. */
+    @Column(name = "media_url", columnDefinition = "TEXT")
+    private String mediaUrl;
+
     @Column(nullable = false, length = 20)
     @Builder.Default
     private String direcao = "RECEBIDA";

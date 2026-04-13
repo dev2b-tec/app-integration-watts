@@ -49,6 +49,46 @@ public class EvolutionApiClient {
                 .toBodilessEntity();
     }
 
+    public void enviarMidia(String instanceName, EnviarMidiaRequest request) {
+        evolutionRestClient.post()
+                .uri("/message/sendMedia/{name}", instanceName)
+                .body(request)
+                .retrieve()
+                .toBodilessEntity();
+    }
+
+    public void enviarAudio(String instanceName, EnviarAudioRequest request) {
+        evolutionRestClient.post()
+                .uri("/message/sendWhatsAppAudio/{name}", instanceName)
+                .body(request)
+                .retrieve()
+                .toBodilessEntity();
+    }
+
+    public void enviarSticker(String instanceName, EnviarStickerRequest request) {
+        evolutionRestClient.post()
+                .uri("/message/sendSticker/{name}", instanceName)
+                .body(request)
+                .retrieve()
+                .toBodilessEntity();
+    }
+
+    public void enviarLocalizacao(String instanceName, EnviarLocalizacaoRequest request) {
+        evolutionRestClient.post()
+                .uri("/message/sendLocation/{name}", instanceName)
+                .body(request)
+                .retrieve()
+                .toBodilessEntity();
+    }
+
+    public void enviarReacao(String instanceName, EnviarReacaoRequest request) {
+        evolutionRestClient.post()
+                .uri("/message/sendReaction/{name}", instanceName)
+                .body(request)
+                .retrieve()
+                .toBodilessEntity();
+    }
+
     /**
      * Obtém o conteúdo de uma mensagem de mídia em Base64.
      *

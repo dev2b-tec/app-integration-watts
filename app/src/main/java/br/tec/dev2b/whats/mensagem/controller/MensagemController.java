@@ -26,6 +26,32 @@ public class MensagemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(mensagemService.enviarTexto(dto));
     }
 
+    @PostMapping("/enviar/midia")
+    public ResponseEntity<MensagemDto> enviarMidia(@RequestBody EnviarMensagemDto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensagemService.enviarMidia(dto));
+    }
+
+    @PostMapping("/enviar/audio")
+    public ResponseEntity<MensagemDto> enviarAudio(@RequestBody EnviarMensagemDto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensagemService.enviarAudio(dto));
+    }
+
+    @PostMapping("/enviar/sticker")
+    public ResponseEntity<MensagemDto> enviarSticker(@RequestBody EnviarMensagemDto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensagemService.enviarSticker(dto));
+    }
+
+    @PostMapping("/enviar/localizacao")
+    public ResponseEntity<MensagemDto> enviarLocalizacao(@RequestBody EnviarMensagemDto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensagemService.enviarLocalizacao(dto));
+    }
+
+    @PostMapping("/enviar/reacao")
+    public ResponseEntity<Void> enviarReacao(@RequestBody EnviarMensagemDto dto) {
+        mensagemService.enviarReacao(dto);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/instancia/{instanciaId}")
     public ResponseEntity<Page<MensagemDto>> listar(
             @PathVariable UUID instanciaId,

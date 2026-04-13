@@ -4,7 +4,7 @@ server.port=${SERVER_PORT:8012}
 
 # PostgreSQL
 spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/app_whats}
-spring.datasource.username=${DB_USER:postgres}
+spring.datasource.username=${DB_USER:super_dev2b}
 spring.datasource.password=${DB_PASSWORD}
 spring.datasource.driver-class-name=org.postgresql.Driver
 

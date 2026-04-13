@@ -1,7 +1,7 @@
 package br.tec.dev2b.whats.mensagem.service;
 
 import br.tec.dev2b.whats.infra.evolution.EvolutionApiClient;
-import br.tec.dev2b.whats.infra.evolution.dto.EnviarTextoRequest;
+import br.tec.dev2b.whats.infra.evolution.dto.*;
 import br.tec.dev2b.whats.infra.websocket.WebSocketNotificationService;
 import br.tec.dev2b.whats.instancia.model.Instancia;
 import br.tec.dev2b.whats.instancia.repository.InstanciaRepository;
@@ -59,6 +59,141 @@ public class MensagemService {
 
         mensagem = mensagemRepository.save(mensagem);
 
+        MensagemDto result = MensagemDto.from(mensagem);
+        webSocketService.notificarMensagem(instancia.getId(), result);
+        return result;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // MÍDIA (imagem / vídeo / documento)
+    // ─────────────────────────────────────────────────────────────────────────
+    @Transactional
+    public MensagemDto enviarMidia(EnviarMensagemDto dto) {
+        Instancia instancia = validarInstancia(dto.getInstanciaId());
+
+        String mediatype = switch (dto.getTipo().toUpperCase()) {
+            case "VIDEO"    -> "video";
+            case "DOCUMENTO" -> "document";
+            default          -> "image";
+        };
+
+        EnviarMidiaRequest req = new EnviarMidiaRequest();
+        req.setNumber(dto.getNumero());
+        req.setMediatype(mediatype);
+        req.setMimetype(dto.getMimeType());
+        req.setCaption(dto.getCaption());
+        req.setMedia(dto.getMediaUrl());
+        req.setFileName(dto.getFileName());
+        req.setDelay(dto.getDelay());
+
+        evolutionApiClient.enviarMidia(instancia.getInstanceName(), req);
+
+        return salvarESinalizar(instancia, dto.getNumero(), dto.getTipo().toUpperCase(),
+                dto.getCaption() != null ? dto.getCaption() : dto.getFileName(),
+                dto.getMediaUrl());
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // ÁUDIO PTT (nota de voz)
+    // ─────────────────────────────────────────────────────────────────────────
+    @Transactional
+    public MensagemDto enviarAudio(EnviarMensagemDto dto) {
+        Instancia instancia = validarInstancia(dto.getInstanciaId());
+
+        EnviarAudioRequest req = new EnviarAudioRequest();
+        req.setNumber(dto.getNumero());
+        req.setAudio(dto.getAudioUrl());
+        req.setDelay(dto.getDelay());
+
+        evolutionApiClient.enviarAudio(instancia.getInstanceName(), req);
+
+        return salvarESinalizar(instancia, dto.getNumero(), "AUDIO_PTT", null, dto.getAudioUrl());
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // STICKER
+    // ─────────────────────────────────────────────────────────────────────────
+    @Transactional
+    public MensagemDto enviarSticker(EnviarMensagemDto dto) {
+        Instancia instancia = validarInstancia(dto.getInstanciaId());
+
+        EnviarStickerRequest req = new EnviarStickerRequest();
+        req.setNumber(dto.getNumero());
+        req.setSticker(dto.getStickerUrl());
+        req.setDelay(dto.getDelay());
+
+        evolutionApiClient.enviarSticker(instancia.getInstanceName(), req);
+
+        return salvarESinalizar(instancia, dto.getNumero(), "STICKER", null, dto.getStickerUrl());
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // LOCALIZAÇÃO
+    // ─────────────────────────────────────────────────────────────────────────
+    @Transactional
+    public MensagemDto enviarLocalizacao(EnviarMensagemDto dto) {
+        Instancia instancia = validarInstancia(dto.getInstanciaId());
+
+        EnviarLocalizacaoRequest req = new EnviarLocalizacaoRequest();
+        req.setNumber(dto.getNumero());
+        req.setName(dto.getLocNome());
+        req.setAddress(dto.getLocEndereco());
+        req.setLatitude(dto.getLatitude());
+        req.setLongitude(dto.getLongitude());
+        req.setDelay(dto.getDelay());
+
+        evolutionApiClient.enviarLocalizacao(instancia.getInstanceName(), req);
+
+        String conteudo = dto.getLocNome() + " | " + dto.getLatitude() + "," + dto.getLongitude();
+        return salvarESinalizar(instancia, dto.getNumero(), "LOCALIZACAO", conteudo, null);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // REAÇÃO
+    // ─────────────────────────────────────────────────────────────────────────
+    @Transactional
+    public void enviarReacao(EnviarMensagemDto dto) {
+        Instancia instancia = validarInstancia(dto.getInstanciaId());
+
+        EnviarReacaoRequest.Key key = new EnviarReacaoRequest.Key();
+        key.setRemoteJid(dto.getReacaoRemoteJid());
+        key.setFromMe(dto.getReacaoFromMe());
+        key.setId(dto.getReacaoMsgId());
+
+        EnviarReacaoRequest req = new EnviarReacaoRequest();
+        req.setKey(key);
+        req.setReaction(dto.getReacaoEmoji());
+
+        evolutionApiClient.enviarReacao(instancia.getInstanceName(), req);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Helpers privados
+    // ─────────────────────────────────────────────────────────────────────────
+    private Instancia validarInstancia(UUID instanciaId) {
+        Instancia instancia = instanciaRepository.findById(instanciaId)
+                .orElseThrow(() -> new IllegalArgumentException("Instância não encontrada: " + instanciaId));
+        if (!"CONECTADA".equals(instancia.getStatus()) && !"ABERTA".equals(instancia.getStatus())) {
+            throw new IllegalStateException("Instância não está conectada. Status: " + instancia.getStatus());
+        }
+        return instancia;
+    }
+
+    private MensagemDto salvarESinalizar(Instancia instancia, String numero,
+                                          String tipo, String conteudo, String mediaUrl) {
+        String remoteJid = numero + "@s.whatsapp.net";
+        Mensagem mensagem = Mensagem.builder()
+                .instancia(instancia)
+                .remoteJid(remoteJid)
+                .numero(numero)
+                .tipo(tipo)
+                .conteudo(conteudo)
+                .mediaUrl(mediaUrl)
+                .direcao("ENVIADA")
+                .statusEnvio("ENVIADA")
+                .build();
+
+        mensagem = mensagemRepository.save(mensagem);
         MensagemDto result = MensagemDto.from(mensagem);
         webSocketService.notificarMensagem(instancia.getId(), result);
         return result;

@@ -53,4 +53,23 @@ public class MensagemDaConversa {
      */
     @Column(name = "enviada", nullable = false)
     private boolean enviada;
+
+    /**
+     * Tipo da mensagem: TEXTO | IMAGEM | VIDEO | DOCUMENTO | AUDIO_PTT | STICKER | LOCALIZACAO.
+     */
+    @Column(name = "tipo", nullable = false, length = 30)
+    @Builder.Default
+    private String tipo = "TEXTO";
+
+    /** Nome original do arquivo (para documentos e mídias). */
+    @Column(name = "nome_arquivo", length = 255)
+    private String nomeArquivo;
+
+    /** Latitude (para mensagens de localização). */
+    @Column(name = "latitude")
+    private Double latitude;
+
+    /** Longitude (para mensagens de localização). */
+    @Column(name = "longitude")
+    private Double longitude;
 }

@@ -19,6 +19,9 @@ services:
       - "traefik.http.routers.app-integration-watts.tls=true"
       - "traefik.http.routers.app-integration-watts.tls.certresolver=letsencrypt"
       - "traefik.http.services.app-integration-watts.loadbalancer.server.port=8012"
+      # WebSocket / SockJS support
+      - "traefik.http.middlewares.ws-headers.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.app-integration-watts.middlewares=ws-headers"
 
 networks:
   db-net:

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,4 +25,12 @@ public interface ConversaRepository extends JpaRepository<Conversa, UUID> {
     /** Busca conversa ativa (ATIVA ou EM_ATENDIMENTO) para um telefone numa empresa. */
     Optional<Conversa> findByEmpresaIdAndTelefoneAndStatusIn(
             UUID empresaId, String telefone, List<StatusConversa> statuses);
+
+    /** Verifica se já existe conversa com atendimento humano (ATIVA ou EM_ATENDIMENTO) para o telefone. */
+    boolean existsByEmpresaIdAndTelefoneAndStatusIn(
+            UUID empresaId, String telefone, List<StatusConversa> statuses);
+
+    /** Conversas com determinados status criadas antes de um instante (para expiração). */
+    List<Conversa> findByStatusInAndCreatedAtBefore(
+            List<StatusConversa> statuses, LocalDateTime before);
 }

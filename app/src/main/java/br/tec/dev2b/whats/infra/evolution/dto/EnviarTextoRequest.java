@@ -6,4 +6,5 @@ import lombok.Data;
 public class EnviarTextoRequest {
     private String number;
     private String text;
+    private boolean linkPreview = false;
 }

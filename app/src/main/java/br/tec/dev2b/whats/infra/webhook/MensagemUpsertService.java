@@ -1,6 +1,7 @@
 package br.tec.dev2b.whats.infra.webhook;
 
 import br.tec.dev2b.whats.conversa.service.ConversaWebhookService;
+import br.tec.dev2b.whats.chatbot.service.ChatbotMotorService;
 import br.tec.dev2b.whats.infra.evolution.dto.WebhookPayload;
 import br.tec.dev2b.whats.instancia.model.Instancia;
 import br.tec.dev2b.whats.instancia.repository.InstanciaRepository;
@@ -33,6 +34,7 @@ public class MensagemUpsertService {
     private final MensagemService     mensagemService;
     private final ConversaWebhookService conversaWebhookService;
     private final MediaDownloadService mediaDownloadService;
+    private final ChatbotMotorService chatbotMotorService;
 
     // ─────────────────────────────────────────────────────────────────────────
 
@@ -104,6 +106,16 @@ public class MensagemUpsertService {
                     instancia.getEmpresaId(), telefone, conteudo.texto(), timestamp, fromMe, urlArquivo);
         } else {
             log.debug("[UPSERT] Instância sem empresaId instanceName={}", instanceName);
+        }
+
+        // 3 — motor do chatbot (somente mensagens recebidas)
+        if (!fromMe && instancia != null && instancia.getEmpresaId() != null) {
+            try {
+                chatbotMotorService.processar(instanceName, instancia.getEmpresaId(),
+                        telefone, conteudo.texto(), pushName);
+            } catch (Exception e) {
+                log.error("[UPSERT] Erro no motor chatbot para telefone={}: {}", telefone, e.getMessage(), e);
+            }
         }
     }
 

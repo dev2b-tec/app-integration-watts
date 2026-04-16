@@ -27,7 +27,7 @@ import java.util.UUID;
 public class ConversaWebhookService {
 
     private static final List<StatusConversa> STATUS_ACEITAM_MENSAGEM =
-            List.of(StatusConversa.ATIVA, StatusConversa.EM_ATENDIMENTO);
+            List.of(StatusConversa.ATIVA, StatusConversa.EM_ATENDIMENTO, StatusConversa.EM_CHATBOT);
 
     private final ConversaRepository conversaRepository;
     private final MensagemDaConversaRepository mensagemDaConversaRepository;

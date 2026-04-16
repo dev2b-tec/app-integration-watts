@@ -100,6 +100,7 @@ public class ConversaService {
         Conversa conversa = findOrThrow(conversaId);
 
         if (enviada) {
+            ativarSeEmEspera(conversa);
             findInstanciaAtiva(conversa.getEmpresaId()).ifPresent(inst -> {
                 EnviarTextoRequest req = new EnviarTextoRequest();
                 req.setNumber(conversa.getTelefone());
@@ -134,6 +135,7 @@ public class ConversaService {
             MultipartFile arquivo) {
 
         Conversa conversa = findOrThrow(conversaId);
+        ativarSeEmEspera(conversa);
 
         String extensao = obterExtensao(arquivo.getOriginalFilename());
         String urlArquivo = minioUploadService.upload(
@@ -182,6 +184,7 @@ public class ConversaService {
     @Transactional
     public MensagemDaConversaDto adicionarMensagemAudio(UUID conversaId, MultipartFile audio) {
         Conversa conversa = findOrThrow(conversaId);
+        ativarSeEmEspera(conversa);
 
         String urlAudio = minioUploadService.upload(
                 getInputStream(audio),
@@ -222,6 +225,7 @@ public class ConversaService {
                                                                Double latitude, Double longitude,
                                                                String nome, String endereco) {
         Conversa conversa = findOrThrow(conversaId);
+        ativarSeEmEspera(conversa);
 
         findInstanciaAtiva(conversa.getEmpresaId()).ifPresent(inst -> {
             EnviarLocalizacaoRequest req = new EnviarLocalizacaoRequest();
@@ -261,6 +265,17 @@ public class ConversaService {
     // ──────────────────────────────────────────────────────────────────────────
     // Helpers
     // ──────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Se a conversa está em EM_ESPERA e um atendente humano responds, sobe para ATIVA.
+     */
+    private void ativarSeEmEspera(Conversa conversa) {
+        if (conversa.getStatus() == StatusConversa.EM_ESPERA) {
+            conversa.setStatus(StatusConversa.ATIVA);
+            conversaRepository.save(conversa);
+            log.debug("[ConversaService] Conversa {} retomada: EM_ESPERA → ATIVA", conversa.getId());
+        }
+    }
 
     private Conversa findOrThrow(UUID id) {
         return conversaRepository.findById(id)
